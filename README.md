@@ -251,3 +251,114 @@ def solve_2(n,arr,k,multiplier):
         arr[ind]=val
     return arr
 ```
+
+<h1>Construct String With Repeat Limit</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/construct-string-with-repeat-limit/description/">Click Here</a></p>
+
+```python
+def solve(s,k):
+    n=len(s)
+    s=list(s)
+    s.sort(reverse=True)
+    i=0
+    currentCount=0
+    current=None
+    while i<n:
+        if(s[i]==current):
+            currentCount+=1
+        else:
+            currentCount=1
+            current=s[i]
+        if(currentCount>k):
+            j=i+1
+            while j<n:
+                if(s[j]!=current):
+                    break
+                j+=1
+            else:
+                return "".join(s[:i])
+            s[i],s[j]=s[j],s[i]
+            current=s[i]
+            currentCount=1
+        i+=1
+    return "".join(s)
+
+import heapq
+
+def solve_2(s,k):
+    count={-ord(i):0 for i in set(s)}
+    for i in s:
+        count[-ord(i)]+=1
+    heap=list(count.items())
+    heapq.heapify(heap)
+    final=""
+    current=None
+    currentCount=0
+    while heap:
+        asci,cnt=heapq.heappop(heap)
+        char=chr(abs(asci))
+        if(char==current):
+            currentCount+=1
+        else:
+            current=char
+            currentCount=1
+        if(currentCount>k):
+            
+            if(heap):
+                asci2,cnt2=heapq.heappop(heap)
+                final+=chr(abs(asci2))
+                if(cnt2>1):
+                    heapq.heappush(heap,(asci2,cnt2-1))
+                current=chr(abs(asci2))
+                currentCount+=1
+                heapq.heappush(heap,(asci,cnt))
+            else:
+                return final
+        else:
+            final+=char
+            if(cnt>1):
+                heapq.heappush(heap,(asci,cnt-1))
+    return final
+```
+
+<br>
+<br>
+
+<h1>Final Prices With a Special Discount in a Shop</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/final-prices-with-a-special-discount-in-a-shop/description/">Click Here</a></p>
+
+```python
+def solve(n,arr):
+    ans=[]
+    for i in range(n):
+        for j in range(i+1,n):
+            if(arr[j]<=arr[i]):
+                ans.append(arr[i]-arr[j])
+                break
+        else:
+            ans.append(arr[i])
+    return ans
+
+def solve_2(n,arr):
+    def next_smaller(n, arr):
+        ans = []
+        stack = []
+        for i in range(n-1, -1, -1):
+            while stack and  arr[i] < stack[-1] :
+                stack.pop()
+            if stack:
+                ans.append(stack[-1])
+            else:
+                ans.append(-1)
+            stack.append(arr[i])
+        return ans[::-1]
+    temp=next_smaller(n,arr)
+    ans=[]
+    for i in range(n):
+        if(temp[i]!=-1):
+            ans.append(arr[i]-temp[i])
+        else:
+            ans.append(arr[i])
+    return ans
+```
+
