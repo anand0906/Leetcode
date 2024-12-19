@@ -362,3 +362,23 @@ def solve_2(n,arr):
     return ans
 ```
 
+<br>
+<br>
+
+<h1>Max Chunks To Make Sorted</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/max-chunks-to-make-sorted/description/">Click Here</a></p>
+
+```python
+def solve(n,arr):
+    expectedSum=0
+    currentSum=0
+    count=0
+    for i in range(n):
+        currentSum+=arr[i]
+        expectedSum+=i
+        if(currentSum==expectedSum):
+            count+=1
+    return count
+```
+
+<p><strong>Solution :</strong> <a href="https://leetcode.com/problems/max-chunks-to-make-sorted/description/comments/2275989">Click Here</a></p>
