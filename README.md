@@ -382,3 +382,50 @@ def solve(n,arr):
 ```
 
 <p><strong>Solution :</strong> <a href="https://leetcode.com/problems/max-chunks-to-make-sorted/description/comments/2275989">Click Here</a></p>
+
+<br>
+<br>
+
+<h1>Reverse Odd Levels of Binary Tree</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/reverse-odd-levels-of-binary-tree/description/">Click Here</a></p>
+
+```python
+from collections import defaultdict
+def solve(root):
+    levels=defaultdict(list)
+    queue=[(root,0)]
+    levels[0].append(root)
+    while queue:
+        temp,level=queue.pop()
+        if(temp.left):
+            queue.append((temp.left,level+1))
+            queue.append((temp.right,level+1))
+            levels[level+1].extend([temp.left,temp.right])
+    for i,v in levels.items():
+        if(i&1):
+            total=2**i
+            temp=(2**i)//2
+            for j in range(temp):
+                v[j].val,v[total-j-1].val=v[total-j-1].val,v[j].val
+    return root
+
+def solve_2(root):
+    queue=[root]
+    odd=True
+    level=0
+    while queue:
+        length=len(queue)
+        for i in range(length):
+            node=queue.pop(0)
+            if(node.left):
+                queue.append(node.left)
+                queue.append(node.right)
+        level+=1
+        if(odd and queue):
+            total=2**level
+            temp=(2**level)//2
+            for j in range(temp):
+                queue[j].val,queue[total-j-1].val=queue[total-j-1].val,queue[j].val
+        odd=not odd
+    return root
+```
