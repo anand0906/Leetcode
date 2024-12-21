@@ -429,3 +429,40 @@ def solve_2(root):
         odd=not odd
     return root
 ```
+
+<h1>Maximum Number of K-Divisible Components</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/maximum-number-of-k-divisible-components/description">Click Here</a></p>
+
+```python
+def solve(n,edges,values,k):
+    if(n<=1):
+        return 1
+    graph=defaultdict(set)
+    for i,j in edges:
+        graph[i].add(j)
+        graph[j].add(i)
+    q=deque()
+    final=0
+    for i,v in graph.items():
+        if(len(v)==1):
+            q.append(i)
+    while q:
+        for i in range(len(q)):
+            node=q.popleft()
+            parent=None
+            if(graph[node]):
+                parent=next(iter(graph[node]))
+            if(parent!=None):
+                graph[parent].remove(node)
+            if(values[node]%k==0):
+                final+=1
+            else:
+                values[parent]+=values[node]
+            if(parent!=None and len(graph[parent])==1):
+                q.append(parent)
+    return final
+```
+
+<pre>If a leaf's value is divisible by k, we can safely separate it from the tree, thus, increasing the number of components. If not, it will be a part of its parent's component. To account for the latter, it is sufficient to just increase the parent's value by the leaf's value.
+
+The algorithm proceeds by cutting leafs at each step and either cutting them (if they correspond to correct components) or merging them with parents (if not).</pre>
