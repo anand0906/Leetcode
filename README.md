@@ -466,3 +466,102 @@ def solve(n,edges,values,k):
 <pre>If a leaf's value is divisible by k, we can safely separate it from the tree, thus, increasing the number of components. If not, it will be a part of its parent's component. To account for the latter, it is sufficient to just increase the parent's value by the leaf's value.
 
 The algorithm proceeds by cutting leafs at each step and either cutting them (if they correspond to correct components) or merging them with parents (if not).</pre>
+
+
+<h1>Find Building Where Alice and Bob Can Meet</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/find-building-where-alice-and-bob-can-meet/description/">Click Here</a></p>
+
+```python
+def solve(n,heights,q,queries):
+    arr=heights
+    ans=[]
+    for i in range(q):
+        a,b=queries[i]
+        if(a==b):
+            ans.append(a)
+            continue
+        for j in range(max(a,b),n):
+            if((arr[j]>arr[a]) and ((b==j and arr[j]>=arr[b]) or (arr[j]>arr[b]))) or ((arr[j]>arr[b]) and ((a==j and arr[j]>=arr[a]) or (arr[j]>arr[a]))):
+                ans.append(j)
+                break
+        else:
+            ans.append(-1)
+    return ans
+
+def optimized(n, arr):
+    ans = [0] *n
+    stack = []
+    for i in range(n-1, -1, -1):
+        while stack and arr[i] >= arr[stack[-1]]:
+            stack.pop()
+        if stack:
+            ans[i]=(stack[-1])
+        else:
+            ans[i]=(-1)
+        stack.append(i)
+    return ans
+
+def solve(n,arr,queries):
+    ans=[]
+    nge=optimized(n, arr)
+    for a,b in queries:
+        if(b<a):
+            a,b=b,a
+        if(a==b):
+            ans.append(a)
+            continue
+        if(arr[a]<arr[b]):
+            ans.append(b)
+            continue
+        if(nge[a]==-1 or nge[b]==-1):
+            ans.append(-1)
+            continue
+        temp=nge[b]
+        while temp!=-1 and arr[temp]<=arr[a]:
+            temp=nge[temp]
+        ans.append(temp)
+    return ans
+```
+
+<p>Need to crack optimized solution yet</p>
+
+<h1>Minimum Number of Operations to Sort a Binary Tree by Level</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/minimum-number-of-operations-to-sort-a-binary-tree-by-level/description/">Problem Link</a></p>
+
+```python
+def minSwaps(self, arr):
+        mp = {}
+        temp = sorted(arr)
+
+        for i in range(len(arr)):
+            mp[temp[i]] = i
+
+        ans = 0
+        i = 0
+        while i < len(arr):
+            ind = mp[arr[i]]
+            if ind == i:
+                i += 1
+            else:
+                arr[i], arr[ind] = arr[ind], arr[i]
+                ans += 1
+        return ans
+
+def solve(root):
+    queue=[root]
+    ans=0
+    while queue:
+        arr=[]
+        for i in range(len(queue)):
+            node=queue.pop(0)
+            if(node.left):
+                queue.append(node.left)
+                arr.append(node.left.val)
+            if(node.right):
+                queue.append(node.right)
+                arr.append(node.right.val)
+        ans+=minSwaps(len(arr),arr)
+    return ans 
+```
+
+<p><strong>Solution : </strong><a href="https://leetcode.com/problems/minimum-number-of-operations-to-sort-a-binary-tree-by-level/solutions/6176090/bfs-minswaps-simple-intuitive-approach">Click Here</a></p>
