@@ -565,3 +565,29 @@ def solve(root):
 ```
 
 <p><strong>Solution : </strong><a href="https://leetcode.com/problems/minimum-number-of-operations-to-sort-a-binary-tree-by-level/solutions/6176090/bfs-minswaps-simple-intuitive-approach">Click Here</a></p>
+
+<h1>Find Largest Value in Each Tree Row</h1>
+
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/find-largest-value-in-each-tree-row/description/">Problem Link</a></p>
+
+```python
+def solve(root):
+    if not root:
+        return []
+    q=[root]
+    ans=[root.val]
+    while q:
+        maxi=float('-inf')
+        for i in range(len(q)):
+            node=q.pop(0)
+            if(node.left):
+                q.append(node.left)
+                maxi=max(maxi,node.left.val)
+            if(node.right):
+                q.append(node.right)
+                maxi=max(maxi,node.right.val)
+        if(q):
+            ans.append(maxi)
+    return ans
+```
+
