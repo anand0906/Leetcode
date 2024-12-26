@@ -591,3 +591,27 @@ def solve(root):
     return ans
 ```
 
+
+
+<h1>Target Sum</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/target-sum/description/">Click Here</a></p>
+
+```python
+def myfunc(n,pos,arr,target):
+    if(pos==n):
+        return 1 if (target==0) else 0
+    include=myfunc(n,pos+1,arr,target-arr[pos])
+    exclude=myfunc(n,pos+1,arr,target+arr[pos])
+    return include+exclude
+
+def myfunc(n,pos,arr,target,memo={}):
+    key=(pos,target)
+    if(pos==n):
+        return 1 if (target==0) else 0
+    if key in memo:
+        return memo[key]
+    include=myfunc(n,pos+1,arr,target-arr[pos],memo)
+    exclude=myfunc(n,pos+1,arr,target+arr[pos],memo)
+    memo[key]=include+exclude
+    return include+exclude
+```
