@@ -615,3 +615,30 @@ def myfunc(n,pos,arr,target,memo={}):
     memo[key]=include+exclude
     return include+exclude
 ```
+
+<h1>Best Sightseeing Pair</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/best-sightseeing-pair/description/">Click Here</a></p>
+
+```python
+def solve(n,arr):
+    maxi=0
+    for i in range(n):
+        for j in range(i+1,n):
+            score=arr[i]+arr[j]+i-j
+            maxi=max(maxi,score)
+    return maxi
+
+def solve(n,arr):
+    suffix=[0]*n
+    for i in range(n-1,-1,-1):
+        if(i<n-1):
+            suffix[i]=max(suffix[i+1],arr[i]-i)
+        else:
+            suffix[i]=arr[i]-i
+    maxi=0
+    for i in range(n-1):
+        maxi=max(maxi,arr[i]+i+suffix[i+1])
+    return maxi
+```
+
+<p><strong>Solution : </strong><a href="https://leetcode.com/problems/best-sightseeing-pair/solutions/6191106/only-suffix-array-o-n-100-beats/">Click Here</a></p>
