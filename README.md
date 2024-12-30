@@ -642,3 +642,81 @@ def solve(n,arr):
 ```
 
 <p><strong>Solution : </strong><a href="https://leetcode.com/problems/best-sightseeing-pair/solutions/6191106/only-suffix-array-o-n-100-beats/">Click Here</a></p>
+
+<h1>Number of Ways to Form a Target String Given a Dictionary</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/number-of-ways-to-form-a-target-string-given-a-dictionary/description/">Click Here</a></p>
+
+```python
+from collections import defaultdict
+Mod=(10**9)+7
+def myfunc(n,target,pos,m,freq,index):
+    if(pos==n):
+        return 1
+    if(index==m):
+        return 0
+    exclude=myfunc(n,target,pos,m,freq,index+1)
+    cnt=freq[index][target[pos]]
+    include=cnt*myfunc(n,target,pos+1,m,freq,index+1)
+    return include+exclude
+
+def myfunc(n,target,pos,m,freq,index,memo):
+    if(pos==n):
+        return 1
+    if(index==m):
+        return 0
+    key=(pos,index)
+    if key in memo:
+        return memo[key]
+    exclude=myfunc(n,target,pos,m,freq,index+1,memo)
+    cnt=freq[index][target[pos]]
+    include=cnt*myfunc(n,target,pos+1,m,freq,index+1,memo)
+    memo[key]=(include+exclude)%Mod
+    return memo[key]
+```
+
+
+
+<h1>Count Ways To Build Good Strings</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/count-ways-to-build-good-strings/description/">Click Here</a></p>
+
+```python
+def solve(low,high,zero,one,cnt):
+    if(cnt>high):
+        return 0
+    includeZero=solve(low,high,zero,one,cnt+zero)
+    includeOne=solve(low,high,zero,one,cnt+one)
+    if(low<=cnt+zero<=high):
+        includeZero+=1
+    if(low<=cnt+one<=high):
+        includeOne+=1
+    return includeZero+includeOne
+
+MOD=10**9+7
+def solve(low,high,zero,one,cnt,memo):
+    key=(cnt)
+    if key in memo:
+        return memo[key]
+    if(cnt>high):
+        return 0
+    includeZero=solve(low,high,zero,one,cnt+zero,memo)
+    includeOne=solve(low,high,zero,one,cnt+one,memo)
+    if(low<=cnt+zero<=high):
+        includeZero+=1
+    if(low<=cnt+one<=high):
+        includeOne+=1
+    memo[key]=(includeZero+includeOne)%MOD
+    return memo[key]
+
+
+
+class Solution(object):
+    def countGoodStrings(self, low, high, zero, one):
+        """
+        :type low: int
+        :type high: int
+        :type zero: int
+        :type one: int
+        :rtype: int
+        """
+        return solve(low,high,zero,one,0,{})
+```
