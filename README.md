@@ -720,3 +720,60 @@ class Solution(object):
         """
         return solve(low,high,zero,one,0,{})
 ```
+
+<h1>Minimum Cost For Tickets</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/minimum-cost-for-tickets/description/">Click Here</a></p>
+
+```python
+def myfunc(days,costs,pos,costInd,startInd):
+    if(pos==len(days)):
+        return 0
+    include1,include7,include30=float('inf'),float('inf'),float('inf')
+    if(costInd==0):
+        include1=costs[0]+myfunc(days,costs,pos+1,0,pos)
+        include7=costs[1]+myfunc(days,costs,pos+1,1,pos)
+        include30=costs[2]+myfunc(days,costs,pos+1,2,pos)
+    if(costInd==1):
+        include1=costs[0]+myfunc(days,costs,pos+1,0,pos)
+        include30=costs[2]+myfunc(days,costs,pos+1,2,pos)
+        if(days[pos]-days[startInd]<7):
+            include7=myfunc(days,costs,pos+1,1,startInd)
+        else:
+            include7=costs[1]+myfunc(days,costs,pos+1,1,pos)
+    if(costInd==2):
+        include1=costs[0]+myfunc(days,costs,pos+1,0,pos)
+        include7=costs[1]+myfunc(days,costs,pos+1,1,pos)
+        if(days[pos]-days[startInd]<30):
+            include30=myfunc(days,costs,pos+1,2,startInd)
+        else:
+            include30=costs[2]+myfunc(days,costs,pos+1,2,pos)
+    return min(include1,min(include7,include30))
+
+def myfunc(days,costs,pos,costInd,startInd,memo):
+    key=(pos,costInd,startInd)
+    if key in memo:
+        return memo[key]
+    if(pos==len(days)):
+        return 0
+    include1,include7,include30=float('inf'),float('inf'),float('inf')
+    if(costInd==0):
+        include1=costs[0]+myfunc(days,costs,pos+1,0,pos,memo)
+        include7=costs[1]+myfunc(days,costs,pos+1,1,pos,memo)
+        include30=costs[2]+myfunc(days,costs,pos+1,2,pos,memo)
+    if(costInd==1):
+        include1=costs[0]+myfunc(days,costs,pos+1,0,pos,memo)
+        include30=costs[2]+myfunc(days,costs,pos+1,2,pos,memo)
+        if(days[pos]-days[startInd]<7):
+            include7=myfunc(days,costs,pos+1,1,startInd,memo)
+        else:
+            include7=costs[1]+myfunc(days,costs,pos+1,1,pos,memo)
+    if(costInd==2):
+        include1=costs[0]+myfunc(days,costs,pos+1,0,pos,memo)
+        include7=costs[1]+myfunc(days,costs,pos+1,1,pos,memo)
+        if(days[pos]-days[startInd]<30):
+            include30=myfunc(days,costs,pos+1,2,startInd,memo)
+        else:
+            include30=costs[2]+myfunc(days,costs,pos+1,2,pos,memo)
+    memo[key]=min(include1,min(include7,include30))
+    return memo[key]
+```
