@@ -777,3 +777,6 @@ def myfunc(days,costs,pos,costInd,startInd,memo):
     memo[key]=min(include1,min(include7,include30))
     return memo[key]
 ```
+
+
+<h1></h1>
