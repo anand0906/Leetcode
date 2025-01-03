@@ -779,4 +779,35 @@ def myfunc(days,costs,pos,costInd,startInd,memo):
 ```
 
 
-<h1></h1>
+<h1>Number of Ways to Split Array</h1>
+
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/number-of-ways-to-split-array/description/">Click Here</a></p>
+
+```python
+def solve(n,arr):
+    ans=0
+    for i in range(n-1):
+        leftSum=0
+        rightSum=0
+        for i in range(i+1):
+            leftSum+=arr[i]
+        for j in range(i+1,n):
+            rightSum+=arr[j]
+        if(leftSum>=rightSum):
+            ans+=1
+    return ans
+
+def solve(n,arr):
+    ans=0
+    prefix=[]
+    currentSum=0
+    for i in range(n):
+        currentSum+=arr[i]
+        prefix.append(currentSum)
+    for i in range(n-1):
+        leftSum=prefix[i]
+        rightSum=prefix[n-1]-prefix[i]
+        if(leftSum>=rightSum):
+            ans+=1
+    return ans
+```
