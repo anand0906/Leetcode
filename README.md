@@ -811,3 +811,111 @@ def solve(n,arr):
             ans+=1
     return ans
 ```
+
+
+
+<h1>Unique Length-3 Palindromic Subsequences</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/unique-length-3-palindromic-subsequences/description/">Click Here</a></p>
+
+```python
+def solve(n,s):
+    ans=set()
+    def recursive(index,length,string):
+        nonlocal ans
+        if(length==3):
+            if(string==string[::-1] and string not in ans):
+                ans.add(string)
+                return 1
+            else:
+                return 0
+        if(index==n):
+            return 0
+        include=recursive(index+1,length+1,string+s[index])
+        exclude=recursive(index+1,length,string)
+        return include+exclude
+    return recursive(0,0,"")
+
+def solve(n,s):
+    ans=set()
+    for i in range(n):
+        for j in range(i+1,n):
+            for k in range(j+1,n):
+                temp=s[i]+s[j]+s[k]
+                if(temp==temp[::-1]):
+                    ans.add(temp)
+    return len(ans)
+
+def solve(n,s):
+    ans=set()
+    prevIndex={}
+    for i in range(n):
+        if s[i] in prevIndex:
+            for j in range(prevIndex[s[i]]+1,i):
+                ans.add(s[i]+s[j]+s[i])
+        if s[i] not in prevIndex:
+            prevIndex[s[i]]=i
+    return len(ans)
+def solve(n,s):
+    first=[None]*26
+    last=[None]*26
+    for i in range(n):
+        if(first[ord('a')-ord(s[i])]==None):
+            first[ord('a')-ord(s[i])]=i
+        last[ord('a')-ord(s[i])]=i
+    ans=0
+    for i in range(26):
+        if(first[i]!=None and last[i]!=None and first[i]<last[i]):
+            ans+=len(set(s[first[i]+1:last[i]]))
+    return ans
+```
+
+<h1>2381. Shifting Letters II</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/shifting-letters-ii/description/">Click Here</a></p>
+
+```python
+def nextChar(char,steps):
+    steps%=26
+    pos=ord(char)-ord('a')
+    pos+=steps
+    pos=pos%26
+    return chr(ord('a')+pos)
+
+def prevChar(char,steps):
+    steps%=26
+    pos=ord(char)-ord('a')
+    pos-=steps
+    if(pos<0):
+        pos=26-abs(pos)
+    return chr(ord('a')+pos)
+
+def solve(n,s,shifts):
+    s=list(s)
+    for i,j,k in shifts:
+        for index in range(i,j+1):
+            if(k):
+                s[index]=nextChar(s[index],1)
+            else:
+                s[index]=prevChar(s[index],1)
+    return "".join(s)
+
+def solve(n,s,shifts):
+    s=list(s)
+    totalShifts=[0]*n
+    for i,j,k in shifts:
+        if(k):
+            totalShifts[i]+=1
+            if(j<n-1):
+                totalShifts[j+1]-=1
+        else:
+            totalShifts[i]-=1
+            if(j<n-1):
+                totalShifts[j+1]+=1
+    for i in range(1,n):
+        totalShifts[i]+=totalShifts[i-1]
+    for i in range(n):
+        if(totalShifts[i]<0):
+            s[i]=prevChar(s[i],abs(totalShifts[i]))
+        else:
+            s[i]=nextChar(s[i],abs(totalShifts[i]))
+    return "".join(s)
+```
