@@ -919,3 +919,49 @@ def solve(n,s,shifts):
             s[i]=nextChar(s[i],abs(totalShifts[i]))
     return "".join(s)
 ```
+
+
+<h1>Minimum Number of Operations to Move All Balls to Each Box</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/description/">Click Here</a></p>
+
+```python
+def solve(n,s):
+    ans=[]
+    for i in range(n):
+        cnt=0
+        for j in range(i+1,n):
+            if(s[j]=="1"):
+                cnt+=(j-i)
+        for j in range(0,i):
+            if(s[j]=="1"):
+                cnt+=(i-j)
+        ans.append(cnt)
+    return ans
+
+def solve(n,s):
+    ans=[]
+    leftOps=[0]*n
+    cnt=0
+    if(s[0]=="1"):
+        cnt+=1
+    for i in range(1,n):
+        leftOps[i]=leftOps[i-1]+cnt
+        if(s[i]=='1'):
+            cnt+=1
+    rightOps=[0]*n
+    cnt=0
+    if(s[-1]=="1"):
+        cnt+=1
+    for i in range(n-2,-1,-1):
+        rightOps[i]=rightOps[i+1]+cnt
+        if(s[i]=='1'):
+            cnt+=1
+    for i in range(n):
+        if(i==0):
+            ans.append(rightOps[i])
+        elif(i==n-1):
+            ans.append(leftOps[i])
+        else:
+            ans.append(leftOps[i]+rightOps[i])
+    return ans
+```
