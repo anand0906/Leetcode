@@ -965,3 +965,30 @@ def solve(n,s):
             ans.append(leftOps[i]+rightOps[i])
     return ans
 ```
+
+
+<h1>Word Subsets</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/word-subsets/description/">Click Here</a></p>
+
+```python
+from collections import defaultdict
+def solve(n,m,arr1,arr2):
+    ans=[]
+    count1=[0]*26
+    for i in range(m):
+        temp=[0]*26
+        for j in arr2[i]:
+            temp[ord(j)-ord('a')]+=1
+            count1[ord(j)-ord('a')]=max(count1[ord(j)-ord('a')],temp[ord(j)-ord('a')])
+    for i in range(n):
+        count2=[0]*26
+        for j in arr1[i]:
+            count2[ord(j)-ord('a')]+=1
+        for k in range(26):
+            if(count1[k]>count2[k]):
+                break
+        else:
+            ans.append(arr1[i])
+    return ans
+```
+
