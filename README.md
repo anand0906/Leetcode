@@ -992,3 +992,29 @@ def solve(n,m,arr1,arr2):
     return ans
 ```
 
+<h1>Construct K Palindrome Strings</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/construct-k-palindrome-strings/description/">Click Here</a></p>
+
+```python
+from collections import defaultdict
+class Solution:
+    def canConstruct(self, s: str, k: int) -> bool:
+        n=len(s)
+        if(k>n):
+            return False
+        if(k==n):
+            return True
+        count=defaultdict(int)
+        for i in s:
+            count[i]+=1
+        oddCnt=0
+        for i,v in count.items():
+            if(v&1):
+                oddCnt+=1
+        if(oddCnt>k):
+            return False
+        return True
+```
+
+<p><strong>Solution</strong></p>
+<p>The solution is based on the understanding that a string can be a palindrome only if it has at most 1 character whose frequency is odd. So if the number of characters having an odd frequency is greater than the number of palindromes we need to form, then naturally it's impossible to do so.</p>
