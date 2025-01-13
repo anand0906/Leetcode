@@ -1018,3 +1018,37 @@ class Solution:
 
 <p><strong>Solution</strong></p>
 <p>The solution is based on the understanding that a string can be a palindrome only if it has at most 1 character whose frequency is odd. So if the number of characters having an odd frequency is greater than the number of palindromes we need to form, then naturally it's impossible to do so.</p>
+
+
+
+<h1>Minimum Length of String After Operations</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/minimum-length-of-string-after-operations/description/">Click Here</a></p>
+
+```python
+def solve(n,s):
+    s=list(s)
+    for i in range(n):
+        if(s[i]==""):
+            continue
+        a,b=None,None
+        for j in range(i-1,-1,-1):
+            if(s[j]==s[i]):
+                a=j
+                break
+        for j in range(i+1,n):
+            if(s[j]==s[i]):
+                b=j
+                break
+        if(a!=None and b!=None):
+            s[a]=""
+            s[b]=""
+    s="".join(s)
+    return len(s)
+
+def solve(n,s):
+    count={i:s.count(i) for i in set(s)}
+    deletions=0
+    for i,cnt in count.items():
+        deletions+=(cnt-2 if cnt%2==0 else cnt-1)
+    return n-deletions
+```
