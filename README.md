@@ -1052,3 +1052,29 @@ def solve(n,s):
         deletions+=(cnt-2 if cnt%2==0 else cnt-1)
     return n-deletions
 ```
+
+
+<h1>Bitwise XOR of All Pairings</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/bitwise-xor-of-all-pairings/description/">Click Here</a></p>
+
+```python
+class Solution:
+    def xorAllNums(self, nums1: List[int], nums2: List[int]) -> int:
+        n1=len(nums1)
+        n2=len(nums2)
+        ans=0
+        if(n1%2==0 and n2%2==0):
+            ans=0
+        elif(n1%2==0 and n2%2==1):
+            for i in nums1:
+                ans^=i
+        elif(n1%2==1 and n2%2==0):
+            for i in nums2:
+                ans^=i
+        elif(n1%2!=0 or n2%2!=0):
+            for i in nums1:
+                ans^=i
+            for j in nums2:
+                ans^=j
+        return ans
+```
