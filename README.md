@@ -1078,3 +1078,18 @@ class Solution:
                 ans^=j
         return ans
 ```
+
+
+<h1>Neighboring Bitwise XOR</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/neighboring-bitwise-xor/description/">Click Here</a></p>
+
+```python
+class Solution:
+    def doesValidArrayExist(self, derived: List[int]) -> bool:
+        arr=derived
+        n=len(arr)
+        ans=0
+        for i in range(n):
+            ans^=arr[i]
+        return bool(not ans)
+```
