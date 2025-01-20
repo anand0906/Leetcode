@@ -1093,3 +1093,23 @@ class Solution:
             ans^=arr[i]
         return bool(not ans)
 ```
+
+
+<h1>Firstly completely painted Row or column</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/first-completely-painted-row-or-column/description/">Click Here</a></p>
+
+```python
+def solve(m,n,arr,matrix):
+    row=[0]*m
+    col=[0]*n
+    index={}
+    for r in range(m):
+        for c in range(n):
+            index[matrix[r][c]]=(r,c)
+    for i in range(m*n):
+        r,c=index[arr[i]]
+        row[r]+=1
+        col[c]+=1
+        if(row[r]==n or col[c]==m):
+            return i
+```
