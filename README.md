@@ -1113,3 +1113,61 @@ def solve(m,n,arr,matrix):
         if(row[r]==n or col[c]==m):
             return i
 ```
+
+<h1>Making Larger Island</h1>
+<p><strong>Problem Statement :</strong><a href="https://leetcode.com/problems/making-a-large-island/description/?envType=daily-question&envId=2025-01-31">click here</a></p>
+
+```python
+def solve(n,matrix):
+    visited=[[0]*n for i in range(n)]
+    def bfs(n,i,j):
+        nonlocal matrix
+        nonlocal visited
+        unique=f"{i}{j}"
+        queue=[(i,j)]
+        temp=[(i,j)]
+        visited[i][j]=1
+        maxi=0
+        while queue:
+            r,c=queue.pop()
+            maxi+=1
+            for i,j in zip([0,0,-1,1],[1,-1,0,0]):
+                row,col=r+i,c+j
+                if(row<n and col<n and row>=0 and col>=0 and matrix[row][col] and not visited[row][col]):
+                    queue.append((row,col))
+                    temp.append((row,col))
+                    visited[row][col]=1
+        
+        for i,j in temp:
+            matrix[i][j]=(maxi,unique)
+        return maxi
+    cnt=0
+    for i in range(n):
+        for j in range(n):
+            if(matrix[i][j]==1):
+                cnt+=1
+            if(matrix[i][j]==1 and not visited[i][j]):
+                temp=bfs(n,i,j)
+    if(cnt==0):
+        return 1
+    ans=0
+    print(matrix)
+    for i in range(n):
+        for j in range(n):
+            temp=1
+            check=[]
+            if(matrix[i][j]==0):
+                for k,l in zip([0,0,-1,1],[1,-1,0,0]):
+                    r=i+k
+                    c=j+l
+                    if(0<=r<n and 0<=c<n and matrix[r][c] and matrix[r][c][1] not in check):
+                       temp+=matrix[r][c][0]
+                       check.append(matrix[r][c][1])
+                       ans=max(ans,temp) 
+    return n*n if(ans==0) else ans
+
+
+class Solution:
+    def largestIsland(self, grid: List[List[int]]) -> int:
+        return solve(len(grid),grid)
+```
