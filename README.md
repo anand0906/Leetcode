@@ -1171,3 +1171,39 @@ class Solution:
     def largestIsland(self, grid: List[List[int]]) -> int:
         return solve(len(grid),grid)
 ```
+
+<h1>Tuple with Same Product</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/tuple-with-same-product/description/"></a>Click Here</p>
+
+```python
+from itertools import permutations
+from collections import defaultdict
+from math import factorial
+def solve(n,arr):
+    cnt=0
+    for a,b,c,d in permutations(arr,4):
+        if(a*b==c*d):
+            cnt+=1
+    return cnt
+
+def solve(n,arr):
+    count=defaultdict(int)
+    for i in range(n):
+        for j in range(i+1,n):
+            count[arr[i]*arr[j]]+=1
+    ans=0
+    print(count)
+    for prod,cnt in count.items():
+        if(cnt>1):
+            ways=(factorial(cnt)//factorial(cnt-2))
+            ans+=(ways*4)
+    return ans
+
+
+class Solution:
+    def tupleSameProduct(self, nums: List[int]) -> int:
+        arr=nums
+        n=len(arr)
+        return solve(n,arr)
+```
+
