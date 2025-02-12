@@ -1207,3 +1207,73 @@ class Solution:
         return solve(n,arr)
 ```
 
+<h1>Remove All Occurrences of a Substring</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/remove-all-occurrences-of-a-substring/">Click Here</a></p>
+
+```python
+class Solution:
+    def removeOccurrences(self, s: str, part: str) -> str:
+        n=len(s)
+        k=len(part)
+        stack=[]
+        i=0
+        while i<n:
+            temp=len(stack)
+            if(len(stack)>=k and stack[temp-k:]==list(part)):
+                stack=stack[:temp-k]
+            stack.append(s[i])
+            i+=1
+        temp=len(stack)
+        if(len(stack)>=k and stack[temp-k:]==list(part)):
+            stack=stack[:temp-k]
+        return "".join(stack)
+
+
+```
+
+<h1>Max Sum of a Pair With Equal Sum of Digits</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/max-sum-of-a-pair-with-equal-sum-of-digits/description/">Click Here</a></p>
+
+
+```python
+from collections import defaultdict
+class Solution:
+    def maximumSum(self, nums: List[int]) -> int:
+        def sumOfDigits(n):
+            sum=0
+            while n>0:
+                sum+=(n%10)
+                n=n//10
+            return sum
+        sums=[]
+        for i in nums:
+            sums.append(sumOfDigits(i))
+        maxi=-1
+        prefix=defaultdict(int)
+        for i in range(len(nums)):
+            if sums[i] in prefix:
+                maxi=max(maxi,nums[i]+prefix[sums[i]])
+            prefix[sums[i]]=max(prefix[sums[i]],nums[i])
+        return maxi
+
+
+```
+
+<h1>Clear Digits</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/clear-digits/description/">Click Here</a></p>
+
+```python
+class Solution:
+    def clearDigits(self, s: str) -> str:
+        s=list(s)
+        n=len(s)
+        cnt=0
+        for i in range(n-1,-1,-1):
+            if(s[i].isdigit()):
+                cnt+=1
+                s[i]=""
+            if(s[i].isalpha() and cnt>0):
+                s[i]=""
+                cnt-=1
+        return "".join(s)
+```
