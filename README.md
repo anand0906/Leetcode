@@ -1277,3 +1277,54 @@ class Solution:
                 cnt-=1
         return "".join(s)
 ```
+
+<h1>Minimum Operations to Exceed Threshold Value II</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/minimum-operations-to-exceed-threshold-value-ii/description/?">Click Here</a></p>
+
+```python
+import heapq
+
+def solve(n,arr,k):
+    arr.sort()
+    a,b=arr[0],arr[1]
+    del arr[0]
+    del arr[0]
+    n-=2
+    cnt=0
+    while a<k:
+        arr.append(min(a,b)*2+max(a,b))
+        cnt+=1
+        arr.sort()
+        n+=1
+        if(n>=2):
+            a,b=arr[0],arr[1]
+            arr.pop(0)
+            arr.pop(0)
+            n-=2
+        else:
+            break
+    return cnt
+
+def solve(n,arr,k):
+    heapq.heapify(arr)
+    a,b=heapq.heappop(arr),heapq.heappop(arr)
+    n-=2
+    cnt=0
+    while a<k:
+        heapq.heappush(arr,min(a,b)*2+max(a,b))
+        n+=1
+        cnt+=1
+        if(n>=2):
+            a,b=heapq.heappop(arr),heapq.heappop(arr)
+            n-=2
+        else:
+            break
+    return cnt
+
+
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        arr=nums
+        n=len(arr)
+        return solve(n,arr,k)
+```
