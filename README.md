@@ -1328,3 +1328,42 @@ class Solution:
         n=len(arr)
         return solve(n,arr,k)
 ```
+
+<h1>Product of the Last K Numbers</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/product-of-the-last-k-numbers/description/">Click Here</a></p>
+
+
+```python
+class ProductOfNumbers:
+
+    def __init__(self):
+        self.nums=[[1,False]]
+        self.length=0
+        
+
+    def add(self, num: int) -> None:
+        if(num==0):
+            for i in range(self.length+1):
+                self.nums[i][1]=True
+            self.nums.append([0,True])
+        else:
+            if(self.nums[-1][0]==0):
+                self.nums.append([num,False])
+            else:
+                self.nums.append([self.nums[-1][0]*num,False])
+        self.length+=1
+
+    def getProduct(self, k: int) -> int:
+        if(k==3):
+            print(self.nums)
+        if(self.nums[-k][1]):
+            return 0
+        base=1 if(self.nums[-k-1][0]==0) else self.nums[-k-1][0]
+        return self.nums[-1][0]//base
+
+
+# Your ProductOfNumbers object will be instantiated and called as such:
+# obj = ProductOfNumbers()
+# obj.add(num)
+# param_2 = obj.getProduct(k)
+```
