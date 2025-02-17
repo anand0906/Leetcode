@@ -1367,3 +1367,22 @@ class ProductOfNumbers:
 # obj.add(num)
 # param_2 = obj.getProduct(k)
 ```
+
+<h1>1079. Letter Tile Possibilities</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/letter-tile-possibilities/">Click Here</a></p>
+
+```python
+def myfunc(n,s,seq,path):
+    if(path):
+        seq.add(path) 
+    for i in range(n):
+        myfunc(n-1,s[:i]+s[i+1:],seq,path+s[i])
+
+class Solution:
+    def numTilePossibilities(self, tiles: str) -> int:
+        ans=set()
+        myfunc(len(tiles),tiles,ans,'')
+        return len(ans)
+
+```
+
