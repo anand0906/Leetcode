@@ -1386,3 +1386,41 @@ class Solution:
 
 ```
 
+
+<h1>1261. Find Elements in a Contaminated Binary Tree</h1>
+<p><strong>Problem Link : </strong><a href="https://leetcode.com/problems/find-elements-in-a-contaminated-binary-tree/description/">Click Here</a></p>
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class FindElements:
+
+    def __init__(self, root: Optional[TreeNode]):
+        self.set=set()
+        def traverse(node):
+            queue=[node]
+            while queue:
+                temp=queue.pop()
+                print(temp.val)
+                self.set.add(temp.val)
+                if(temp.left):
+                    temp.left.val=2*temp.val+1
+                    queue.append(temp.left)
+                if(temp.right):
+                    temp.right.val=2*temp.val+2
+                    queue.append(temp.right)
+        root.val=0
+        traverse(root)
+        
+
+    def find(self, target: int) -> bool:
+        return target in self.set
+
+# Your FindElements object will be instantiated and called as such:
+# obj = FindElements(root)
+# param_1 = obj.find(target)
+```
