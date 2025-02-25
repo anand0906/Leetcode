@@ -1424,3 +1424,60 @@ class FindElements:
 # obj = FindElements(root)
 # param_1 = obj.find(target)
 ```
+
+
+<h1>Number of Sub-arrays With Odd Sum</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/number-of-sub-arrays-with-odd-sum/description/">Click Here</a></p>
+
+```python
+def solve(n,arr):
+    count=0
+    for i in range(n):
+        for j in range(i,n):
+            s=0
+            for k in range(i,j+1):
+                s+=arr[k]
+            if(s%2):
+                count+=1
+    return count
+
+def solve(n,arr):
+    count=0
+    for i in range(n):
+        s=0
+        for j in range(i,n):
+            s+=arr[j]
+            if(s%2):
+                count+=1
+    return count
+
+def solve(n,arr):
+    arr=[arr[i]%2 for i in range(n)]
+    total=n*(n+1)//2
+    count=0
+    prefix={0:1}
+    sum=0
+    for i in range(n):
+        sum+=arr[i]
+        rem=sum%2
+        rem=(rem + 2) % 2
+        if(rem in prefix):
+            count+=prefix[rem]
+            prefix[rem]+=1
+        else:
+            prefix[rem]=1
+    return int((total-count)%(1e9+7))
+
+
+class Solution:
+    def numOfSubarrays(self, arr: List[int]) -> int:
+        n=len(arr)
+        return solve(n,arr)
+```
+
+<h1></h1>
+<p><strong>Problem Link :</strong><a href="">Click Here</a></p>
+
+```python
+```
+<p><strong>Solution :</strong><a href="">Click Here</a></p>
