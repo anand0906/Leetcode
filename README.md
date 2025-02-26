@@ -1475,6 +1475,46 @@ class Solution:
         return solve(n,arr)
 ```
 
+<h1>Maximum Absolute Sum of Any Subarray</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/maximum-absolute-sum-of-any-subarray/description/">Click Here</a></p>
+
+```python
+def solve(n,arr):
+    maxi=0
+    for i in range(n):
+        s=0
+        for j in range(i,n):
+            s+=arr[j]
+            maxi=max(maxi,abs(s)) 
+    return maxi
+
+def solve(n,arr):
+    maxi=0
+    sum=0
+    for i in range(n):
+        sum+=arr[i]
+        if(sum>maxi):
+            maxi=sum
+        if(sum<0):
+            sum=0
+    mini=float('inf')
+    sum=0
+    for i in range(n):
+        sum+=arr[i]
+        if(sum<mini):
+            mini=sum
+        if(sum>0):
+            sum=0
+    return max(abs(maxi),abs(mini))
+        
+
+class Solution:
+    def maxAbsoluteSum(self, nums: List[int]) -> int:
+        n=len(nums)
+        arr=nums
+        return solve(n,arr)
+```
+
 <h1></h1>
 <p><strong>Problem Link :</strong><a href="">Click Here</a></p>
 
