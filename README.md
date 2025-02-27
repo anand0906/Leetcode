@@ -1515,9 +1515,47 @@ class Solution:
         return solve(n,arr)
 ```
 
+---
+
+<h1>Length of Longest Fibonacci Subsequence</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/length-of-longest-fibonacci-subsequence/description/">Click Here</a></p>
+
+```python
+def bruteForce(n,arr,index,temp):
+    if(index>=n):
+        return 0
+    if(len(temp)>=2):
+        if(temp[-1]+temp[-2]==arr[index]):
+            include=1+bruteForce(n,arr,index+1,temp+[arr[index]])
+        else:
+            include=bruteForce(n,arr,index+1,temp)
+    else:
+        include=bruteForce(n,arr,index+1,temp+[arr[index]])
+    exclude=bruteForce(n,arr,index+1,temp)
+    return max(include,exclude)
+
+def solve(n,arr):
+    s=set(arr)
+    maxi=0
+    for i in range(n):
+        for j in range(i+1,n):
+            a,b,l=arr[i],arr[j],2
+            while a+b in s:
+                a,b,l=b,a+b,l+1
+            maxi=max(maxi,l)
+    return maxi
+```
+<p><strong>Solution :</strong><a href="https://leetcode.com/problems/length-of-longest-fibonacci-subsequence/solutions/152343/c-java-python-check-pair/?envType=daily-question&envId=2025-02-27">Click Here</a></p>
+
+---
+
 <h1></h1>
 <p><strong>Problem Link :</strong><a href="">Click Here</a></p>
 
 ```python
 ```
 <p><strong>Solution :</strong><a href="">Click Here</a></p>
+
+---
+
+
