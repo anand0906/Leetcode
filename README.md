@@ -1549,6 +1549,28 @@ def solve(n,arr):
 
 ---
 
+<h1>Partition Array According to Given Pivot</h1>
+<p><strong>Problem Link :</strong><a href="https://leetcode.com/problems/partition-array-according-to-given-pivot/description/">Click Here</a></p>
+
+```python
+class Solution:
+    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
+        before=[]
+        after=[]
+        pvtCnt=0
+        for i in nums:
+            if(i==pivot):
+                pvtCnt+=1
+            if(i<pivot):
+                before.append(i)
+            if(i>pivot):
+                after.append(i)
+        return before+[pivot]*pvtCnt+after
+        
+```
+
+---
+
 <h1></h1>
 <p><strong>Problem Link :</strong><a href="">Click Here</a></p>
 
