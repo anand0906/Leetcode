@@ -57,3 +57,33 @@ class Solution:
 <ul>
 	<li>Saw hints and solved</li>
 </ul>
+
+
+<br/>
+
+<h2>Count Subarrays Where Max Element Appears at Least K Times</h2>
+<a href="https://leetcode.com/problems/count-subarrays-where-max-element-appears-at-least-k-times/description/">Problem : 2962</a>
+
+```python
+class Solution:
+    def countSubarrays(self, nums: List[int], k: int) -> int:
+        arr=nums
+        n=len(arr)
+        left,right=0,0
+        maxi=max(nums)
+        count=0
+        indexes=[]
+        ans=0
+        while right<n:
+            if(arr[right]==maxi):
+                count+=1
+                indexes.append(right+1)
+            if(count>=k):
+                ans+=indexes[-k]
+            right+=1
+        return ans
+```
+
+<ul>
+    <li>Checked Official leetcode discussion</li>
+</ul>
